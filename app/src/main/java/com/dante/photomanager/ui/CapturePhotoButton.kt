@@ -23,6 +23,11 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+/**
+ * A composable function that displays a floating action button for capturing photos.
+ *
+ * @param onCapture A callback function to handle the captured photo's URI.
+ */
 @Composable
 fun CapturePhotoButton(onCapture: (String) -> Unit) {
     val context = LocalContext.current
@@ -53,17 +58,22 @@ fun CapturePhotoButton(onCapture: (String) -> Unit) {
     }
 }
 
+/**
+ * Saves a bitmap image to the device storage.
+ *
+ * @param context The context used to access the content resolver.
+ * @param bitmap The bitmap image to be saved.
+ * @return The URI of the saved image, or null if the save operation failed.
+ */
 fun saveImageToStorage(context: Context, bitmap: Bitmap): String? {
     val filename = "Photo_${System.currentTimeMillis()}.jpg"
     var outputStream: OutputStream? = null
     var uri: String? = null
 
-    // Check if the device is running Android Q or higher
     val isQ = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q
 
     try {
         uri = if (isQ) {
-            // Use MediaStore API to save the image in a public directory for Android Q and above
             val resolver = context.contentResolver
             val contentValues = ContentValues().apply {
                 put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
@@ -76,7 +86,6 @@ fun saveImageToStorage(context: Context, bitmap: Bitmap): String? {
             outputStream = resolver.openOutputStream(imageUri!!)
             imageUri.toString()
         } else {
-            // For Android versions below Q, save the image in the external storage directory
             val directory =
                 File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "PhotoManagerApp")
             if (!directory.exists()) {
@@ -87,8 +96,6 @@ fun saveImageToStorage(context: Context, bitmap: Bitmap): String? {
             outputStream = FileOutputStream(file)
             file.absolutePath
         }
-
-        // Compress and write the bitmap to the output stream
         if (outputStream != null) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         }
