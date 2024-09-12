@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PhotoViewModel : ViewModel() {
     private val _photoList = MutableStateFlow<List<PhotoModel>>(emptyList())
@@ -19,7 +21,8 @@ class PhotoViewModel : ViewModel() {
     val filteredPhotoList: StateFlow<List<PhotoModel>> = _photoList
         .combine(_searchQuery) { list, query ->
             list.filter {
-                it.photoName?.contains(query.text, ignoreCase = true) ?: false
+                it.photoName?.contains(query.text, ignoreCase = true) ?: false ||
+                        it.createdDate?.contains(query.text, ignoreCase = true) ?: false
             }
         }
         .stateIn(
@@ -45,4 +48,11 @@ class PhotoViewModel : ViewModel() {
             SortOptions.NAME_DESCENDING -> _photoList.value.sortedByDescending { it.photoName }
         }
     }
+
+    fun getCurrentDateAndTime(): String {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy / HH:mm:ss")
+        return currentDateTime.format(formatter)
+    }
+
 }
