@@ -1,4 +1,4 @@
-package com.dante.photomanager.ui
+package com.dante.photomanager.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.dante.photomanager.model.PhotoModel
+import com.dante.photomanager.ui.PhotoViewModel
 
 
 /**

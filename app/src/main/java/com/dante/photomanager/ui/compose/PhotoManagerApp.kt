@@ -1,4 +1,4 @@
-package com.dante.photomanager.ui
+package com.dante.photomanager.ui.compose
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.dante.photomanager.model.PhotoModel
+import com.dante.photomanager.ui.PhotoViewModel
 
 
 /**

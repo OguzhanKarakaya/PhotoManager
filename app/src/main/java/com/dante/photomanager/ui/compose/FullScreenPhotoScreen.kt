@@ -1,4 +1,4 @@
-package com.dante.photomanager.ui
+package com.dante.photomanager.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

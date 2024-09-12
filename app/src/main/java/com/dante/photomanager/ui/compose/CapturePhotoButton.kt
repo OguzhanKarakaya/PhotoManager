@@ -1,4 +1,4 @@
-package com.dante.photomanager.ui
+package com.dante.photomanager.ui.compose
 
 import android.content.ContentValues
 import android.content.Context

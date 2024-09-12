@@ -1,4 +1,4 @@
-package com.dante.photomanager.ui
+package com.dante.photomanager.ui.compose
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
